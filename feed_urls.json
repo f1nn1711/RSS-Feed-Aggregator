@@ -1,0 +1,34 @@
+{
+	"bbc" : {
+		"link" : "http://feeds.bbci.co.uk/news/world/rss.xml",
+		"name" : "BBC News"
+	},
+	"sky" : {
+		"link" : "http://feeds.skynews.com/feeds/rss/home.xml",
+		"name" : "Sky News"
+	},
+	"nyt" : {
+		"link" : "http://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml",
+		"name" : "The New York Times"
+	},
+	"buzzfeed" : {
+		"link" : "https://www.buzzfeed.com/world.xml",
+		"name" : "Buzzfeed World"
+	},
+	"cnn" : {
+		"link" : "http://rss.cnn.com/rss/edition_world.rss",
+		"name" : "CNN"
+	},
+	"guardian" : {
+		"link" : "http://rss.cnn.com/rss/edition_world.rss",
+		"name" : "The Guardian"
+	},
+	"wp" : {
+		"link" : "feed://feeds.washingtonpost.com/rss/world",
+		"name" : "The Washington Post"
+	},
+	"independant" : {
+		"link" : "feed:https://www.independent.co.uk/news/world/rss",
+		"name" : "The Independant"
+	}
+}
