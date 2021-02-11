@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a href="#" class="navbar-brand" style="margin-left: 20px;">RSS News Feed</a>
+	</nav>
+	<div class="container">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for m in messages %}
+					<p style="font-size:18px;" class="alert alert-warning">{{m}}</p>
+				{% endfor %}
+				<br>
+			{% endif %}
+		{% endwith %}
+		<p>Enter a new username and password for your account. Or you can log in <a href="{{ url_for('log_in') }}">here.</a></p>
+		<form action="#" method="post">
+			<label for="username">New Username:</label>
+			<input type="text" name="username" id="username">
+
+			<label for="password">New Password:</label>
+			<input type="password" name="password" id="password">
+
+			<h5>What news stations would you like news from? (This can be changed later.)</h5>
+			{% for ud in url_data %}
+				<label for="{{ud}}">{{url_data[ud]["name"]}}:</label>
+
+				{% if ud in my_feed_urls %}
+					<input type="checkbox" class="newsCheckbox" name="{{ud}}" checked>
+				{% else %}
+					<input type="checkbox" class="newsCheckbox" name="{{ud}}">
+				{% endif %}
+				<br>
+			{% endfor %}
+
+			<button type="submit">Sign Up</button>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feed</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		<a href="#" class="navbar-brand" style="margin-left: 20px;">RSS News Feed</a>
+
+		<div class="navbar-nav ml-auto">
+			<a href="{{url_for('log_out')}}" class="nav-item nav-link">Log Out</a>
+		</div>
+	</nav>
+
+	<div class="container">
+		<hr>
+		<div>
+			<h4>Select News Stations:</h4>
+			{% for ud in url_data %}
+				<label for="showPath">{{url_data[ud]["name"]}}:</label>
+
+				{% if ud in my_feed_urls %}
+					<input type="checkbox" class="newsCheckbox" name="showPath" checked>
+				{% else %}
+					<input type="checkbox" class="newsCheckbox" name="showPath">
+				{% endif %}
+				<br>
+			{% endfor %}
+			<label for="maxArticles">Max Articles:</label>
+			<select id="maxArticles" name="maxArticles">
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15" selected>15</option>
+				<option value="20">20</option>
+				<option value="25">25</option>
+				<option value="30">30</option>
+				<option value="35">35</option>
+				<option value="40">40</option>
+				<option value="45">45</option>
+				<option value="50">50</option>
+				<option value="55">55</option>
+				<option value="60">60</option>
+			</select>
+			<br>
+			<span><button type="button" class="btn btn-success" onclick="sendUpdate();">Update Preferences</button>
+			<button type="button" class="btn btn-success" onclick="window.location.reload();">Reload Feed</button></span>
+		</div>
+		<hr>
+		{% for a in articles %}
+			<div class="alert alert-success">
+				<h4>{{a["src"]}}</h4>
+				<span>Time: {{ a["time"] | format_time }}</span><br>
+				<span><b>{{a["title"]}}</b> - </span>
+				<span>{{a["summary"]}}</span>
+				<br>
+				<a href="{{a['link']}}">Click here to view the full article.</a>
+			</div>
+		{% endfor %}
+	</div>
+	<script type="text/javascript">
+		function sendUpdate() {
+			console.log("started");
+
+			let checkboxes = document.getElementsByClassName("newsCheckbox");
+			let articles_dropdown = document.getElementById("maxArticles");
+			let cb_values = [];
+
+			cb_values.push(Number(articles_dropdown.value));
+
+			let URL = '/update';
+			let xhr = new XMLHttpRequest();
+
+			for (let i = 0; i<checkboxes.length; i++) {
+				cb_values.push(checkboxes[i].checked);
+			};
+
+			console.log("sent");
+
+			to_send = JSON.stringify(cb_values);
+			xhr.open('POST', URL);
+			xhr.send(to_send);
+		};
+	</script>
+</body>
+</html>
